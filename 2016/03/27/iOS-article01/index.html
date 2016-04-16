@@ -11,13 +11,13 @@
 <meta property="og:url" content="http://yanglei3kyou.github.io/2016/03/27/iOS-article01/index.html">
 <meta property="og:site_name" content="Levis's Den">
 <meta property="og:description" content="阐述, 最近这段时间，一些同事在打包的时候几乎都会提出这种问题，故出来研究探讨一下。">
-<meta property="og:image" content="http://yanglei3kyou.github.io/iOS-article01/20160308105924065.png">
-<meta property="og:image" content="http://yanglei3kyou.github.io/iOS-article01/20160308110204900.png">
-<meta property="og:updated_time" content="2016-03-27T09:55:55.000Z">
+<meta property="og:image" content="http://yanglei3kyou.github.io/2016/03/27/iOS-article01/20160308105924065.png">
+<meta property="og:image" content="http://yanglei3kyou.github.io/2016/03/27/iOS-article01/20160308110204900.png">
+<meta property="og:updated_time" content="2016-04-16T13:46:06.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="iOS 探讨之 WWDCRA 无效 or "此证书的签发者无效"">
 <meta name="twitter:description" content="阐述, 最近这段时间，一些同事在打包的时候几乎都会提出这种问题，故出来研究探讨一下。">
-<meta name="twitter:image" content="http://yanglei3kyou.github.io/iOS-article01/20160308105924065.png">
+<meta name="twitter:image" content="http://yanglei3kyou.github.io/2016/03/27/iOS-article01/20160308105924065.png">
   
     <link rel="alternative" href="/atom.xml" title="Levis&#39;s Den" type="application/atom+xml">
   
@@ -284,14 +284,14 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-        <p>阐述<br>最近这段时间，一些同事在打包的时候几乎都会提出这种问题，故出来研究探讨一下。</p>
-<p>思考方向<br>方向1. 由于我们申请的所有证书都是从 苹果证书颁发机构 中请求的，若是苹果证书颁发机构自身的认证证书失效，那么我们所有的证书将会失效。<br>方向2. 单一项目的证书的过期，在打包中则会提示“Error: xxx” 而不会简单的给出一个“Warning: xxx”。<br>方向3. 在Keychain Access中，证书错误的提示为 “此证书的签发者无效” 而非 “此证书已过期”。</p>
-<p>结论<br>苹果证书颁发机构的认证证书失效，导致所有的证书提示“此证书的签发者无效”。</p>
-<p>解决方法<br>1 重要的事情说三遍:<br>请在 Keychain Access 状态下，点击上方工具栏中的 “显示” ，选择 “显示已过期的证书”(若出现“隐藏已过期的证书”则跳过此步)。<br>请在 Keychain Access 状态下，点击上方工具栏中的 “显示” ，选择 “显示已过期的证书”(若出现“隐藏已过期的证书”则跳过此步)。<br>请在 Keychain Access 状态下，点击上方工具栏中的 “显示” ，选择 “显示已过期的证书”(若出现“隐藏已过期的证书”则跳过此步)。</p>
-<p><img src="iOS-article01/20160308105924065.png" alt="img1"></p>
-<p>2 在 Keychain Access 中，如下图，依次做出操作<br>a 钥匙串中选择 “登录” 选项卡<br>b 种类中选择 “所有项目” 选项卡<br>c 在右上方搜索栏中搜索 Apple Worldwide … (只要能筛选出这种证书就行)</p>
-<p><img src="iOS-article01/20160308110204900.png" alt="img2"></p>
-<p>3 查看筛选出来的证书，删除其中显示 “此证书已过期” 的证书。<br>4 若存在未过期的 Apple Worldwide 证书则跳过这一步。若不存在 Apple Worldwide 证书，在 <a href="https://developer.apple.com/certificationauthority/AppleWWDRCA.cer" target="_blank" rel="external">https://developer.apple.com/certificationauthority/AppleWWDRCA.cer</a>  中下载该新版证书(双击安装)。<br>5 关闭 Keychain Access 重新打开，此时所有的证书恢复正常。</p>
+        <p>&#x9610;&#x8FF0;<br>&#x6700;&#x8FD1;&#x8FD9;&#x6BB5;&#x65F6;&#x95F4;&#xFF0C;&#x4E00;&#x4E9B;&#x540C;&#x4E8B;&#x5728;&#x6253;&#x5305;&#x7684;&#x65F6;&#x5019;&#x51E0;&#x4E4E;&#x90FD;&#x4F1A;&#x63D0;&#x51FA;&#x8FD9;&#x79CD;&#x95EE;&#x9898;&#xFF0C;&#x6545;&#x51FA;&#x6765;&#x7814;&#x7A76;&#x63A2;&#x8BA8;&#x4E00;&#x4E0B;&#x3002;</p>
+<p>&#x601D;&#x8003;&#x65B9;&#x5411;<br>&#x65B9;&#x5411;1. &#x7531;&#x4E8E;&#x6211;&#x4EEC;&#x7533;&#x8BF7;&#x7684;&#x6240;&#x6709;&#x8BC1;&#x4E66;&#x90FD;&#x662F;&#x4ECE; &#x82F9;&#x679C;&#x8BC1;&#x4E66;&#x9881;&#x53D1;&#x673A;&#x6784; &#x4E2D;&#x8BF7;&#x6C42;&#x7684;&#xFF0C;&#x82E5;&#x662F;&#x82F9;&#x679C;&#x8BC1;&#x4E66;&#x9881;&#x53D1;&#x673A;&#x6784;&#x81EA;&#x8EAB;&#x7684;&#x8BA4;&#x8BC1;&#x8BC1;&#x4E66;&#x5931;&#x6548;&#xFF0C;&#x90A3;&#x4E48;&#x6211;&#x4EEC;&#x6240;&#x6709;&#x7684;&#x8BC1;&#x4E66;&#x5C06;&#x4F1A;&#x5931;&#x6548;&#x3002;<br>&#x65B9;&#x5411;2. &#x5355;&#x4E00;&#x9879;&#x76EE;&#x7684;&#x8BC1;&#x4E66;&#x7684;&#x8FC7;&#x671F;&#xFF0C;&#x5728;&#x6253;&#x5305;&#x4E2D;&#x5219;&#x4F1A;&#x63D0;&#x793A;&#x201C;Error: xxx&#x201D; &#x800C;&#x4E0D;&#x4F1A;&#x7B80;&#x5355;&#x7684;&#x7ED9;&#x51FA;&#x4E00;&#x4E2A;&#x201C;Warning: xxx&#x201D;&#x3002;<br>&#x65B9;&#x5411;3. &#x5728;Keychain Access&#x4E2D;&#xFF0C;&#x8BC1;&#x4E66;&#x9519;&#x8BEF;&#x7684;&#x63D0;&#x793A;&#x4E3A; &#x201C;&#x6B64;&#x8BC1;&#x4E66;&#x7684;&#x7B7E;&#x53D1;&#x8005;&#x65E0;&#x6548;&#x201D; &#x800C;&#x975E; &#x201C;&#x6B64;&#x8BC1;&#x4E66;&#x5DF2;&#x8FC7;&#x671F;&#x201D;&#x3002;</p>
+<p>&#x7ED3;&#x8BBA;<br>&#x82F9;&#x679C;&#x8BC1;&#x4E66;&#x9881;&#x53D1;&#x673A;&#x6784;&#x7684;&#x8BA4;&#x8BC1;&#x8BC1;&#x4E66;&#x5931;&#x6548;&#xFF0C;&#x5BFC;&#x81F4;&#x6240;&#x6709;&#x7684;&#x8BC1;&#x4E66;&#x63D0;&#x793A;&#x201C;&#x6B64;&#x8BC1;&#x4E66;&#x7684;&#x7B7E;&#x53D1;&#x8005;&#x65E0;&#x6548;&#x201D;&#x3002;</p>
+<p>&#x89E3;&#x51B3;&#x65B9;&#x6CD5;<br>1 &#x91CD;&#x8981;&#x7684;&#x4E8B;&#x60C5;&#x8BF4;&#x4E09;&#x904D;:<br>&#x8BF7;&#x5728; Keychain Access &#x72B6;&#x6001;&#x4E0B;&#xFF0C;&#x70B9;&#x51FB;&#x4E0A;&#x65B9;&#x5DE5;&#x5177;&#x680F;&#x4E2D;&#x7684; &#x201C;&#x663E;&#x793A;&#x201D; &#xFF0C;&#x9009;&#x62E9; &#x201C;&#x663E;&#x793A;&#x5DF2;&#x8FC7;&#x671F;&#x7684;&#x8BC1;&#x4E66;&#x201D;(&#x82E5;&#x51FA;&#x73B0;&#x201C;&#x9690;&#x85CF;&#x5DF2;&#x8FC7;&#x671F;&#x7684;&#x8BC1;&#x4E66;&#x201D;&#x5219;&#x8DF3;&#x8FC7;&#x6B64;&#x6B65;)&#x3002;<br>&#x8BF7;&#x5728; Keychain Access &#x72B6;&#x6001;&#x4E0B;&#xFF0C;&#x70B9;&#x51FB;&#x4E0A;&#x65B9;&#x5DE5;&#x5177;&#x680F;&#x4E2D;&#x7684; &#x201C;&#x663E;&#x793A;&#x201D; &#xFF0C;&#x9009;&#x62E9; &#x201C;&#x663E;&#x793A;&#x5DF2;&#x8FC7;&#x671F;&#x7684;&#x8BC1;&#x4E66;&#x201D;(&#x82E5;&#x51FA;&#x73B0;&#x201C;&#x9690;&#x85CF;&#x5DF2;&#x8FC7;&#x671F;&#x7684;&#x8BC1;&#x4E66;&#x201D;&#x5219;&#x8DF3;&#x8FC7;&#x6B64;&#x6B65;)&#x3002;<br>&#x8BF7;&#x5728; Keychain Access &#x72B6;&#x6001;&#x4E0B;&#xFF0C;&#x70B9;&#x51FB;&#x4E0A;&#x65B9;&#x5DE5;&#x5177;&#x680F;&#x4E2D;&#x7684; &#x201C;&#x663E;&#x793A;&#x201D; &#xFF0C;&#x9009;&#x62E9; &#x201C;&#x663E;&#x793A;&#x5DF2;&#x8FC7;&#x671F;&#x7684;&#x8BC1;&#x4E66;&#x201D;(&#x82E5;&#x51FA;&#x73B0;&#x201C;&#x9690;&#x85CF;&#x5DF2;&#x8FC7;&#x671F;&#x7684;&#x8BC1;&#x4E66;&#x201D;&#x5219;&#x8DF3;&#x8FC7;&#x6B64;&#x6B65;)&#x3002;</p>
+<p><img src="/2016/03/27/iOS-article01/20160308105924065.png" alt="img1"></p>
+<p>2 &#x5728; Keychain Access &#x4E2D;&#xFF0C;&#x5982;&#x4E0B;&#x56FE;&#xFF0C;&#x4F9D;&#x6B21;&#x505A;&#x51FA;&#x64CD;&#x4F5C;<br>a &#x94A5;&#x5319;&#x4E32;&#x4E2D;&#x9009;&#x62E9; &#x201C;&#x767B;&#x5F55;&#x201D; &#x9009;&#x9879;&#x5361;<br>b &#x79CD;&#x7C7B;&#x4E2D;&#x9009;&#x62E9; &#x201C;&#x6240;&#x6709;&#x9879;&#x76EE;&#x201D; &#x9009;&#x9879;&#x5361;<br>c &#x5728;&#x53F3;&#x4E0A;&#x65B9;&#x641C;&#x7D22;&#x680F;&#x4E2D;&#x641C;&#x7D22; Apple Worldwide &#x2026; (&#x53EA;&#x8981;&#x80FD;&#x7B5B;&#x9009;&#x51FA;&#x8FD9;&#x79CD;&#x8BC1;&#x4E66;&#x5C31;&#x884C;)</p>
+<p><img src="/2016/03/27/iOS-article01/20160308110204900.png" alt="img2"></p>
+<p>3 &#x67E5;&#x770B;&#x7B5B;&#x9009;&#x51FA;&#x6765;&#x7684;&#x8BC1;&#x4E66;&#xFF0C;&#x5220;&#x9664;&#x5176;&#x4E2D;&#x663E;&#x793A; &#x201C;&#x6B64;&#x8BC1;&#x4E66;&#x5DF2;&#x8FC7;&#x671F;&#x201D; &#x7684;&#x8BC1;&#x4E66;&#x3002;<br>4 &#x82E5;&#x5B58;&#x5728;&#x672A;&#x8FC7;&#x671F;&#x7684; Apple Worldwide &#x8BC1;&#x4E66;&#x5219;&#x8DF3;&#x8FC7;&#x8FD9;&#x4E00;&#x6B65;&#x3002;&#x82E5;&#x4E0D;&#x5B58;&#x5728; Apple Worldwide &#x8BC1;&#x4E66;&#xFF0C;&#x5728; <a href="https://developer.apple.com/certificationauthority/AppleWWDRCA.cer" target="_blank" rel="external">https://developer.apple.com/certificationauthority/AppleWWDRCA.cer</a>  &#x4E2D;&#x4E0B;&#x8F7D;&#x8BE5;&#x65B0;&#x7248;&#x8BC1;&#x4E66;(&#x53CC;&#x51FB;&#x5B89;&#x88C5;)&#x3002;<br>5 &#x5173;&#x95ED; Keychain Access &#x91CD;&#x65B0;&#x6253;&#x5F00;&#xFF0C;&#x6B64;&#x65F6;&#x6240;&#x6709;&#x7684;&#x8BC1;&#x4E66;&#x6062;&#x590D;&#x6B63;&#x5E38;&#x3002;</p>
 
       
     </div>
@@ -303,7 +303,7 @@
         <p><span>本文标题:</span><a href="/2016/03/27/iOS-article01/">iOS 探讨之 WWDCRA 无效 or &quot;此证书的签发者无效&quot;</a></p>
         <p><span>文章作者:</span><a href="/" title="访问 Levis 的个人博客">Levis</a></p>
         <p><span>发布时间:</span>2016年03月27日 - 17时17分</p>
-        <p><span>最后更新:</span>2016年03月27日 - 17时55分</p>
+        <p><span>最后更新:</span>2016年04月16日 - 21时46分</p>
         <p>
             <span>原始链接:</span><a class="post-url" href="/2016/03/27/iOS-article01/" title="iOS 探讨之 WWDCRA 无效 or &quot;此证书的签发者无效&quot;">http://yanglei3kyou.github.io/2016/03/27/iOS-article01/</a>
             <span class="copy-path" data-clipboard-text="原文: http://yanglei3kyou.github.io/2016/03/27/iOS-article01/　　作者: Levis" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
