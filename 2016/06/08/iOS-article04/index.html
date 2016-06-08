@@ -3,30 +3,21 @@
 <head>
   <meta charset="utf-8">
   
-  <title>资源导航 | Levis&#39;s Den</title>
+  <title>iOS 探讨之 动态二维码 | Levis&#39;s Den</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="iOS :
-
-Apple Developer &amp;#x82F9;&amp;#x679C;&amp;#x5F00;&amp;#x53D1;&amp;#x8005;&amp;#x4E2D;&amp;#x5FC3; 
-iTunes Connect &amp;#x5F00;&amp;#x53D1;&amp;#x8005;&amp;#x5E94;&amp;#x7528;&amp;#x5546;&amp;#x5E97;
-Apple China &amp;#x82F9;&amp;#x679C;&amp;#x4E2D;&amp;#x56FD; &amp;#">
-<meta property="og:type" content="website">
-<meta property="og:title" content="资源导航">
-<meta property="og:url" content="http://yanglei3kyou.github.io/FrontEndGuide/index.html">
+  <meta name="description" content="内部测试、对外推广时开发人员往往需要将安装包以二维码的方式进行分发，但通常是苹果App、安卓App各一个二维码。如何实现一个二维码同时支持苹果App下载和安卓App下载呢？(安卓设备扫描下载安卓包，苹果设备扫描下载苹果包)">
+<meta property="og:type" content="article">
+<meta property="og:title" content="iOS 探讨之 动态二维码">
+<meta property="og:url" content="http://yanglei3kyou.github.io/2016/06/08/iOS-article04/index.html">
 <meta property="og:site_name" content="Levis's Den">
-<meta property="og:description" content="iOS :
-
-Apple Developer &amp;#x82F9;&amp;#x679C;&amp;#x5F00;&amp;#x53D1;&amp;#x8005;&amp;#x4E2D;&amp;#x5FC3; 
-iTunes Connect &amp;#x5F00;&amp;#x53D1;&amp;#x8005;&amp;#x5E94;&amp;#x7528;&amp;#x5546;&amp;#x5E97;
-Apple China &amp;#x82F9;&amp;#x679C;&amp;#x4E2D;&amp;#x56FD; &amp;#">
-<meta property="og:updated_time" content="2016-06-03T05:16:30.000Z">
+<meta property="og:description" content="内部测试、对外推广时开发人员往往需要将安装包以二维码的方式进行分发，但通常是苹果App、安卓App各一个二维码。如何实现一个二维码同时支持苹果App下载和安卓App下载呢？(安卓设备扫描下载安卓包，苹果设备扫描下载苹果包)">
+<meta property="og:image" content="http://yanglei3kyou.github.io/2016/06/08/iOS-article04/1.jpg">
+<meta property="og:image" content="http://yanglei3kyou.github.io/2016/06/08/iOS-article04/2.jpg">
+<meta property="og:updated_time" content="2016-06-08T06:20:23.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="资源导航">
-<meta name="twitter:description" content="iOS :
-
-Apple Developer &amp;#x82F9;&amp;#x679C;&amp;#x5F00;&amp;#x53D1;&amp;#x8005;&amp;#x4E2D;&amp;#x5FC3; 
-iTunes Connect &amp;#x5F00;&amp;#x53D1;&amp;#x8005;&amp;#x5E94;&amp;#x7528;&amp;#x5546;&amp;#x5E97;
-Apple China &amp;#x82F9;&amp;#x679C;&amp;#x4E2D;&amp;#x56FD; &amp;#">
+<meta name="twitter:title" content="iOS 探讨之 动态二维码">
+<meta name="twitter:description" content="内部测试、对外推广时开发人员往往需要将安装包以二维码的方式进行分发，但通常是苹果App、安卓App各一个二维码。如何实现一个二维码同时支持苹果App下载和安卓App下载呢？(安卓设备扫描下载安卓包，苹果设备扫描下载苹果包)">
+<meta name="twitter:image" content="http://yanglei3kyou.github.io/2016/06/08/iOS-article04/1.jpg">
   
     <link rel="alternative" href="/atom.xml" title="Levis&#39;s Den" type="application/atom+xml">
   
@@ -51,7 +42,7 @@ Apple China &amp;#x82F9;&amp;#x679C;&amp;#x4E2D;&amp;#x56FD; &amp;#">
           fancybox: true,
           animate: true,
           isHome: false,
-          isPost: false,
+          isPost: true,
           isArchive: false,
           isTag: false,
           isCategory: false,
@@ -251,7 +242,13 @@ Apple China &amp;#x82F9;&amp;#x679C;&amp;#x4E2D;&amp;#x56FD; &amp;#">
         </header>                
     </div>
 </nav>
-      <div class="body-wrap"><article id="post-FrontEndGuide" class="article article-type-post" itemscope itemprop="blogPost">
+      <div class="body-wrap"><article id="post-iOS-article04" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/06/08/iOS-article04/" class="article-date">
+      <time datetime="2016-06-08T06:10:21.000Z" itemprop="datePublished">2016-06-08</time>
+</a>
+    </div>
   
   <div class="article-inner">
     
@@ -262,7 +259,7 @@ Apple China &amp;#x82F9;&amp;#x679C;&amp;#x4E2D;&amp;#x56FD; &amp;#">
         
   
     <h1 class="article-title" itemprop="name">
-      资源导航
+      iOS 探讨之 动态二维码
     </h1>
   
 
@@ -270,8 +267,16 @@ Apple China &amp;#x82F9;&amp;#x679C;&amp;#x4E2D;&amp;#x56FD; &amp;#">
       
       <div class="article-info article-info-post">
         
+    <div class="article-category tagcloud">
+    <a class="article-category-link" href="/categories/iOS/">iOS</a>
+    </div>
+
 
         
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/iOS/">iOS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/二维码/">二维码</a></li></ul>
+    </div>
+
         <div class="clearfix"></div>
       </div>
       
@@ -279,56 +284,34 @@ Apple China &amp;#x82F9;&amp;#x679C;&amp;#x4E2D;&amp;#x56FD; &amp;#">
     <div class="article-entry" itemprop="articleBody">
       
           
-              <style>
-    .article-meta {
-        display: none;
-    }
-    #container .article .article-title {
-        padding-right: 0;
-    }
-    .article-header {
-        padding: 0;
-        padding-top: 26px;
-        border-left: none;
-        text-align: center;
-    }
-    .article-header:hover {
-        border-left: none;
-    }
-    .article-title {
-        font-size: 1.6em
-    }
-    .article-meta {
-        display: none;
-    }
-    .article-entry hr {
-        margin: 0;
-    }
-    #container .article-info-post.article-info {
-      display: none;
-      }
-    #container .article .article-title {
-    padding: 0;
-    }
-</style>
-
-
-          
-        <p><strong>iOS :</strong></p>
+        <p><strong>&#x9610;&#x8FF0;</strong></p>
+<p>&#x5185;&#x90E8;&#x6D4B;&#x8BD5;&#x3001;&#x5BF9;&#x5916;&#x63A8;&#x5E7F;&#x65F6;&#x5F00;&#x53D1;&#x4EBA;&#x5458;&#x5F80;&#x5F80;&#x9700;&#x8981;&#x5C06;&#x5B89;&#x88C5;&#x5305;&#x4EE5;&#x4E8C;&#x7EF4;&#x7801;&#x7684;&#x65B9;&#x5F0F;&#x8FDB;&#x884C;&#x5206;&#x53D1;&#xFF0C;&#x4F46;&#x901A;&#x5E38;&#x662F;&#x82F9;&#x679C;App&#x3001;&#x5B89;&#x5353;App&#x5404;&#x4E00;&#x4E2A;&#x4E8C;&#x7EF4;&#x7801;&#x3002;&#x5982;&#x4F55;&#x5B9E;&#x73B0;&#x4E00;&#x4E2A;&#x4E8C;&#x7EF4;&#x7801;&#x540C;&#x65F6;&#x652F;&#x6301;&#x82F9;&#x679C;App&#x4E0B;&#x8F7D;&#x548C;&#x5B89;&#x5353;App&#x4E0B;&#x8F7D;&#x5462;&#xFF1F;(&#x5B89;&#x5353;&#x8BBE;&#x5907;&#x626B;&#x63CF;&#x4E0B;&#x8F7D;&#x5B89;&#x5353;&#x5305;&#xFF0C;&#x82F9;&#x679C;&#x8BBE;&#x5907;&#x626B;&#x63CF;&#x4E0B;&#x8F7D;&#x82F9;&#x679C;&#x5305;)</p>
+<p><strong>&#x63A2;&#x7D22;</strong></p>
+<p>&#x53D1;&#x73B0;&#x8349;&#x6599;&#x4E8C;&#x7EF4;&#x7801;&#x63D0;&#x4F9B;&#x76F8;&#x5E94;&#x7684;&#x89E3;&#x51B3;&#x5DE5;&#x5177;&#xFF0C;&#x672C;&#x7740;&#x7814;&#x7A76;&#x7684;&#x6001;&#x5EA6;&#xFF0C;&#x7528;&#x6293;&#x5305;&#x5DE5;&#x5177; Charles &#x91C7;&#x96C6;&#x4E86;&#x5176;&#x751F;&#x6210;&#x7684;&#x4E8C;&#x7EF4;&#x7801;&#x626B;&#x63CF;&#x540E;&#x7684;&#x7F51;&#x7EDC;&#x4FE1;&#x606F;&#x72B6;&#x6001;&#x3002;</p>
+<p><img src="/2016/06/08/iOS-article04/1.jpg" alt="img1"></p>
+<p>&#x901A;&#x8FC7;&#x7814;&#x7A76;&#x7F51;&#x7EDC;&#x4EA4;&#x4E92;&#x4FE1;&#x606F;&#xFF0C;&#x53EF;&#x4EE5;&#x5F97;&#x51FA;&#x5982;&#x4E0B;&#x7ED3;&#x8BBA;:</p>
 <ul>
-<li><a href="https://developer.apple.com/" title="Apple Developer" target="_blank" rel="external">Apple Developer</a> &#x82F9;&#x679C;&#x5F00;&#x53D1;&#x8005;&#x4E2D;&#x5FC3; </li>
-<li><a href="https://itunesconnect.apple.com/" title="iTunes Connect" target="_blank" rel="external">iTunes Connect</a> &#x5F00;&#x53D1;&#x8005;&#x5E94;&#x7528;&#x5546;&#x5E97;</li>
-<li><a href="http://www.apple.com/cn/" title="Apple China" target="_blank" rel="external">Apple China</a> &#x82F9;&#x679C;&#x4E2D;&#x56FD; &#x1F1E8;&#x1F1F3;</li>
-<li><a href="https://www.objc.io" title="objc" target="_blank" rel="external">objc</a> Objective-C &#x793E;&#x533A;</li>
-<li><a href="http://objccn.io" title="objc &#x4E2D;&#x56FD;" target="_blank" rel="external">objc &#x4E2D;&#x56FD;</a> Objective-C &#x4E2D;&#x56FD;&#x793E;&#x533A;</li>
+<li>&#x4E8C;&#x7EF4;&#x7801;&#x6240;&#x5BF9;&#x5E94;&#x7684;&#x4FE1;&#x606F;&#x5B9E;&#x4E3A;&#x4E00;&#x4E2A;&#x7F51;&#x9875;&#x7684;&#x8DF3;&#x8F6C;&#x5730;&#x5740;</li>
+<li>&#x8BE5;&#x8DF3;&#x8F6C;&#x5730;&#x5740;&#x83B7;&#x53D6;&#x79FB;&#x52A8;&#x8BBE;&#x5907;&#x4FE1;&#x606F;</li>
+<li>&#x8BBE;&#x5907;&#x6709;&#x5173;&#x4FE1;&#x606F;&#x5C06;&#x53D1;&#x9001;&#x7ED9;&#x67D0;&#x4E2A;&#x670D;&#x52A1;&#x5668;</li>
+<li>&#x670D;&#x52A1;&#x5668;&#x8FD4;&#x56DE;&#x771F;&#x6B63;&#x9700;&#x8981;&#x4F7F;&#x7528;&#x7684;&#x5730;&#x5740;</li>
 </ul>
-<p><strong>UI &#x7D20;&#x6750; :</strong></p>
+<p>&#x8349;&#x6599;&#x4E8C;&#x7EF4;&#x7801;&#x5728;&#x6D3B;&#x7801;&#x7684;&#x6709;&#x5173;&#x4ECB;&#x7ECD;&#x66F4;&#x52A0;&#x5370;&#x8BC1;&#x4E0A;&#x65B9;&#x5F97;&#x51FA;&#x7684;&#x7ED3;&#x8BBA;&#x3002;</p>
+<p><img src="/2016/06/08/iOS-article04/2.jpg" alt="img2"></p>
+<p>&#x731C;&#x60F3;&#x5B9E;&#x73B0;&#x65B9;&#x6848;</p>
 <ul>
-<li><a href="http://www.58pic.com" title="&#x5343;&#x56FE;&#x7F51;" target="_blank" rel="external">&#x5343;&#x56FE;&#x7F51;</a> Photoshop &#x7D20;&#x6750;&#x5E93;</li>
+<li>&#x5411;&#x540E;&#x53F0;&#x63D0;&#x4F9B;&#x9700;&#x8981;&#x533A;&#x5206;&#x7684;&#x4FE1;&#x606F;&#xFF0C;&#x5982;Andriod App&#x4E0B;&#x8F7D;&#x5730;&#x5740;&#x3001;iOS App&#x4E0B;&#x8F7D;&#x5730;&#x5740;</li>
+<li>&#x540E;&#x53F0;&#x5728;&#x6570;&#x636E;&#x5E93;&#x4E2D;&#x8FDB;&#x884C;&#x4FDD;&#x5B58;</li>
+<li>&#x540E;&#x53F0;&#x751F;&#x6210;&#x4E00;&#x4E2A;&#x5BF9;&#x5916;&#x4EA4;&#x4E92;Web&#x5730;&#x5740;(Web&#x80FD;&#x591F;&#x83B7;&#x53D6;&#x8BBE;&#x5907;&#x4FE1;&#x606F;)</li>
+<li>&#x5C06;Web&#x5730;&#x5740;&#x751F;&#x6210;&#x5BF9;&#x5E94;&#x4E8C;&#x7EF4;&#x7801;</li>
+<li>&#x7528;&#x6237;&#x8BBE;&#x5907;&#x901A;&#x8FC7;&#x4E8C;&#x7EF4;&#x7801;&#x8BBF;&#x95EE;Web&#x5730;&#x5740;&#x65F6;&#xFF0C;Web&#x83B7;&#x53D6;&#x8BBE;&#x5907;&#x4FE1;&#x606F;</li>
+<li>Web&#x53D1;&#x9001;&#x8BBE;&#x5907;&#x4FE1;&#x606F;&#x7ED9;&#x540E;&#x53F0;</li>
+<li>&#x540E;&#x53F0;&#x6839;&#x636E;&#x4FE1;&#x606F;&#x8FD4;&#x56DE;&#x7ED9;&#x8BBE;&#x5907;&#x771F;&#x6B63;&#x7684;&#x4FE1;&#x606F;</li>
 </ul>
-<p><strong>Mac &#x76F8;&#x5173; :</strong></p>
+<p><strong>&#x4E1A;&#x52A1;&#x62D3;&#x5C55;</strong></p>
 <ul>
-<li><a href="http://wallpaperswide.com" title="Wallpaperswide" target="_blank" rel="external">Wallpaperswide</a> Mac &#x58C1;&#x7EB8;&#x5E93;</li>
+<li>&#x5728;&#x5BF9;&#x5916;&#x5730;&#x5740;&#x4E0D;&#x53D8;&#x65F6;&#xFF0C;&#x540E;&#x53F0;&#x53EF;&#x4EE5;&#x66F4;&#x6539;&#x6240;&#x63D0;&#x4F9B;&#x7684;&#x4FE1;&#x606F;</li>
+<li>&#x4E8C;&#x7EF4;&#x7801;&#x626B;&#x63CF;&#x6570;&#x636E;&#x53EF;&#x4EE5;&#x7EDF;&#x8BA1;&#xFF0C;&#x76D1;&#x63A7;&#x626B;&#x63CF;&#x60C5;&#x51B5;</li>
 </ul>
 
       
@@ -337,10 +320,81 @@ Apple China &amp;#x82F9;&amp;#x679C;&amp;#x4E2D;&amp;#x56FD; &amp;#">
   </div>
   
     
+    <div class="copyright">
+        <p><span>本文标题:</span><a href="/2016/06/08/iOS-article04/">iOS 探讨之 动态二维码</a></p>
+        <p><span>文章作者:</span><a href="/" title="访问 Levis 的个人博客">Levis</a></p>
+        <p><span>发布时间:</span>2016年06月08日 - 14时10分</p>
+        <p><span>最后更新:</span>2016年06月08日 - 14时20分</p>
+        <p>
+            <span>原始链接:</span><a class="post-url" href="/2016/06/08/iOS-article04/" title="iOS 探讨之 动态二维码">http://yanglei3kyou.github.io/2016/06/08/iOS-article04/</a>
+            <span class="copy-path" data-clipboard-text="原文: http://yanglei3kyou.github.io/2016/06/08/iOS-article04/　　作者: Levis" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
+            <script src="/js/clipboard.min.js"></script>
+            <script> var clipboard = new Clipboard('.copy-path'); </script>
+        </p>
+        <p>
+            <span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/" title="中国大陆 (CC BY-NC-SA 3.0 CN)" target = "_blank">"署名-非商用-相同方式共享 3.0"</a> 转载请保留原文链接及作者。
+        </p>
+    </div>
 
+
+
+<nav id="article-nav">
+  
+  
+    <a href="/2016/05/30/iOS-article03/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">iOS 探讨之 正则表达式</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
 
   
 </article>
+
+    <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
+    
+</div>
+<style>
+    .left-col .switch-btn {
+        display: none;
+    }
+    .left-col .switch-area {
+        display: none;
+    }
+</style>
+
+<input type="button" id="tocButton" value="隐藏目录"  title="点击按钮隐藏或者显示文章目录">
+
+<script src="http://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
+<script>
+    var valueHide = "隐藏目录";
+    var valueShow = "显示目录";
+
+    if ($(".left-col").is(":hidden")) {
+        $("#tocButton").attr("value", valueShow);
+    }
+
+    $("#tocButton").click(function() {
+        if ($("#toc").is(":hidden")) {
+            $("#tocButton").attr("value", valueHide);
+            $("#toc").slideDown(320);
+            $(".switch-btn, .switch-area").fadeOut(300);
+        }
+        else {
+            $("#tocButton").attr("value", valueShow);
+            $("#toc").slideUp(350);
+            $(".switch-btn, .switch-area").fadeIn(500);
+        }
+    })
+
+    if ($(".toc").length < 1) {
+        $("#toc, #tocButton").hide();
+        $(".switch-btn, .switch-area").show();
+    }
+</script>
+
+
 
 
 
@@ -361,7 +415,7 @@ Apple China &amp;#x82F9;&amp;#x679C;&amp;#x4E2D;&amp;#x56FD; &amp;#">
     
       <div class="duoshuo" id="comments">
     <!-- 多说评论框 start -->
-    <div class="ds-thread" data-thread-key="FrontEndGuide/index.html" data-title="资源导航" data-url="http://yanglei3kyou.github.io/FrontEndGuide/index.html"></div>
+    <div class="ds-thread" data-thread-key="2016/06/08/iOS-article04/" data-title="iOS 探讨之 动态二维码" data-url="http://yanglei3kyou.github.io/2016/06/08/iOS-article04/"></div>
     <!-- 多说评论框 end -->
     <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
     <script type="text/javascript">
@@ -381,6 +435,39 @@ Apple China &amp;#x82F9;&amp;#x679C;&amp;#x4E2D;&amp;#x56FD; &amp;#">
     
 
 
+
+    <div class="scroll" id="post-nav-button">
+        
+            <a href="/" title="回到主页"><i class="fa fa-home"></i></a>
+        
+        <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
+        
+            <a href="/2016/05/30/iOS-article03/" title="下一篇: iOS 探讨之 正则表达式">
+                <i class="fa fa-angle-right"></i>
+            </a>
+        
+    </div>
+    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2016/06/08/iOS-article04/">iOS 探讨之 动态二维码</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/05/30/iOS-article03/">iOS 探讨之 正则表达式</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/04/17/iOS-article02/">iOS 探讨之 "Developer Tools Access 需要控制..."</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/03/27/iOS-article01/">iOS 探讨之 WWDCRA 无效 or "此证书的签发者无效"</a></li></ul>
+    <script src="http://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
+    <script>
+        $(".post-list").addClass("toc-article");
+        $(".post-list-item a").attr("target","_blank");
+        $("#post-nav-button > a:nth-child(2)").click(function() {
+            $(".fa-bars, .fa-times").toggle();
+            $(".post-list").toggle(300);
+            if ($(".toc").length > 0) {
+                $("#toc, #tocButton").toggle(200, function() {
+                    if ($(".switch-area").is(":visible")) {
+                        $("#toc, .switch-btn, .switch-area").toggle();
+                        $("#tocButton").attr("value", valueHide);
+                        }
+                    })
+            }
+            else {
+                $(".switch-btn, .switch-area").fadeToggle(300);
+            }
+        })
+    </script>
 
 
 
