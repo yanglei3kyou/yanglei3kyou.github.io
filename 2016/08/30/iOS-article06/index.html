@@ -1,0 +1,574 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>iOS 探讨之 玩转设备权限 | Levis&#39;s Den</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="从前几年的棱镜门到最近的Apple与FBI关于解锁iPhone的争论，人们开始重视个人隐私地保护。Apple在用户保护隐私这方面做了很多工作，因此受到了广大用户的好评，但变相得增加对iOS开发者的要求(熟练地掌握设备权限)。下面我们开始探讨一下iOS设备中某些权限。(注:iPad、iTouch不含有某些功能)">
+<meta property="og:type" content="article">
+<meta property="og:title" content="iOS 探讨之 玩转设备权限">
+<meta property="og:url" content="http://yanglei3kyou.github.io/2016/08/30/iOS-article06/index.html">
+<meta property="og:site_name" content="Levis's Den">
+<meta property="og:description" content="从前几年的棱镜门到最近的Apple与FBI关于解锁iPhone的争论，人们开始重视个人隐私地保护。Apple在用户保护隐私这方面做了很多工作，因此受到了广大用户的好评，但变相得增加对iOS开发者的要求(熟练地掌握设备权限)。下面我们开始探讨一下iOS设备中某些权限。(注:iPad、iTouch不含有某些功能)">
+<meta property="og:updated_time" content="2016-08-30T08:22:55.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="iOS 探讨之 玩转设备权限">
+<meta name="twitter:description" content="从前几年的棱镜门到最近的Apple与FBI关于解锁iPhone的争论，人们开始重视个人隐私地保护。Apple在用户保护隐私这方面做了很多工作，因此受到了广大用户的好评，但变相得增加对iOS开发者的要求(熟练地掌握设备权限)。下面我们开始探讨一下iOS设备中某些权限。(注:iPad、iTouch不含有某些功能)">
+  
+    <link rel="alternative" href="/atom.xml" title="Levis&#39;s Den" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/img/PersonalLogo.png">
+  
+  
+  <link rel="stylesheet" href="//cdn.bootcss.com/animate.css/3.5.0/animate.min.css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/font-awesome/css/font-awesome.min.css">
+  <link rel="apple-touch-icon" href="/PersonalLogo.png">
+  
+  
+      <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  
+  <!-- 加载特效 -->
+    <script src="/js/pace.js"></script>
+    <link href="/css/pace/pace-theme-flash.css" rel="stylesheet" />
+  <script>
+      var yiliaConfig = {
+          fancybox: true,
+          animate: true,
+          isHome: false,
+          isPost: true,
+          isArchive: false,
+          isTag: false,
+          isCategory: false,
+          open_in_new: false
+      }
+  </script>
+</head>
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+    <header id="header" class="inner">
+        <a href="/" class="profilepic">
+            
+            <img lazy-src="/img/PersonalHeadLogo.png" class="js-avatar">
+            
+        </a>
+
+        <hgroup>
+          <h1 class="header-author"><a href="/">Levis</a></h1>
+        </hgroup>
+
+        
+        <p class="header-subtitle">Hi，我是杨磊 (@yanglei3kyou)，一名来自中国的iOS / Unity 开发者。</p>
+        
+        
+        
+            <div id="switch-btn" class="switch-btn">
+                <div class="icon">
+                    <div class="icon-ctn">
+                        <div class="icon-wrap icon-house" data-idx="0">
+                            <div class="birdhouse"></div>
+                            <div class="birdhouse_holes"></div>
+                        </div>
+                        <div class="icon-wrap icon-ribbon hide" data-idx="1">
+                            <div class="ribbon"></div>
+                        </div>
+                        
+                        <div class="icon-wrap icon-link hide" data-idx="2">
+                            <div class="loopback_l"></div>
+                            <div class="loopback_r"></div>
+                        </div>
+                        
+                        
+                        <div class="icon-wrap icon-me hide" data-idx="3">
+                            <div class="user"></div>
+                            <div class="shoulder"></div>
+                        </div>
+                        
+                    </div>
+                    
+                </div>
+                <div class="tips-box hide">
+                    <div class="tips-arrow"></div>
+                    <ul class="tips-inner">
+                        <li>菜单</li>
+                        <li>标签</li>
+                        
+                        <li>友情链接</li>
+                        
+                        
+                        <li>关于我</li>
+                        
+                    </ul>
+                </div>
+            </div>
+        
+
+        <div id="switch-area" class="switch-area">
+            <div class="switch-wrap">
+                <section class="switch-part switch-part1">
+                    <nav class="header-menu">
+                        <ul>
+                        
+                            <li><a href="/">博客首页</a></li>
+                        
+                            <li><a href="/works">作品展示</a></li>
+                        
+                            <li><a href="/FrontEndGuide">资源导航</a></li>
+                        
+                            <li><a href="/about">留言打卡</a></li>
+                        
+                        </ul>
+                    </nav>
+                    <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fl mail" target="_blank" href="mailto:yanglei3kyou@126.com" title="mail">mail</a>
+                            
+                                <a class="fl github" target="_blank" href="https://github.com/yanglei3kyou" title="github">github</a>
+                            
+                                <a class="fl zhihu" target="_blank" href="https://www.zhihu.com/people/yanglei3kyou" title="zhihu">zhihu</a>
+                            
+                                <a class="fl weibo" target="_blank" href="http://weibo.com/yleo070142" title="weibo">weibo</a>
+                            
+                                <a class="fl google" target="_blank" href="http://i.youku.com/yleo070142" title="google">google</a>
+                            
+                                <a class="fl twitter" target="_blank" href="#" title="twitter">twitter</a>
+                            
+                                <a class="fl facebook" target="_blank" href="#" title="facebook">facebook</a>
+                            
+                                <a class="fl rss" target="_blank" href="/atom.xml" title="rss">rss</a>
+                            
+                        </ul>
+                    </nav>
+                </section>
+                
+                
+                <section class="switch-part switch-part2">
+                    <div class="widget tagcloud" id="js-tagcloud">
+                        <a href="/tags/WWDCRA/" style="font-size: 10px;">WWDCRA</a> <a href="/tags/iOS/" style="font-size: 20px;">iOS</a> <a href="/tags/二维码/" style="font-size: 10px;">二维码</a> <a href="/tags/权限/" style="font-size: 10px;">权限</a> <a href="/tags/证书签名/" style="font-size: 10px;">证书签名</a> <a href="/tags/静态库/" style="font-size: 10px;">静态库</a>
+                    </div>
+                </section>
+                
+                
+                
+                <section class="switch-part switch-part3">
+                    <div id="js-friends">
+                    
+                      <a target="_blank" class="main-nav-link switch-friends-link" href="http://www.jianshu.com/users/b4346d69a1bf/latest_articles/">Molary</a>
+                    
+                      <a target="_blank" class="main-nav-link switch-friends-link" href="http://www.jianshu.com/users/ee0520f2d909/latest_articles/">寒桥</a>
+                    
+                      <a target="_blank" class="main-nav-link switch-friends-link" href="http://www.jianshu.com/users/de1fdd431a39/followers/">RunningDu</a>
+                    
+                    </div>
+                </section>
+                
+
+                
+                
+                <section class="switch-part switch-part4">
+                
+                    <div id="js-aboutme">Hi，我是杨磊 (@yanglei3kyou)，一名来自中国的iOS / Unity 开发者。90后，天蝎座优秀男青年！现居北京，就职于CAXA，爱折腾，爱探索，更爱游离于错综复杂的编码与逻辑中，无法自拔。</div>
+                </section>
+                
+            </div>
+        </div>
+    </header>                
+</div>
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+      <div class="overlay">
+          <div class="slider-trigger"></div>
+          <h1 class="header-author js-mobile-header hide"><a href="/" title="回到主页">Levis</a></h1>
+      </div>
+    <div class="intrude-less">
+        <header id="header" class="inner">
+            <a href="/" class="profilepic">
+                
+                    <img lazy-src="/img/PersonalHeadLogo.png" class="js-avatar">
+                
+            </a>
+            <hgroup>
+              <h1 class="header-author"><a href="/" title="回到主页">Levis</a></h1>
+            </hgroup>
+            
+            <p class="header-subtitle">Hi，我是杨磊 (@yanglei3kyou)，一名来自中国的iOS / Unity 开发者。</p>
+            
+            <nav class="header-menu">
+                <ul>
+                
+                    <li><a href="/">博客首页</a></li>
+                
+                    <li><a href="/works">作品展示</a></li>
+                
+                    <li><a href="/FrontEndGuide">资源导航</a></li>
+                
+                    <li><a href="/about">留言打卡</a></li>
+                
+                <div class="clearfix"></div>
+                </ul>
+            </nav>
+            <nav class="header-nav">
+                <div class="social">
+                    
+                        <a class="mail" target="_blank" href="mailto:yanglei3kyou@126.com" title="mail">mail</a>
+                    
+                        <a class="github" target="_blank" href="https://github.com/yanglei3kyou" title="github">github</a>
+                    
+                        <a class="zhihu" target="_blank" href="https://www.zhihu.com/people/yanglei3kyou" title="zhihu">zhihu</a>
+                    
+                        <a class="weibo" target="_blank" href="http://weibo.com/yleo070142" title="weibo">weibo</a>
+                    
+                        <a class="google" target="_blank" href="http://i.youku.com/yleo070142" title="google">google</a>
+                    
+                        <a class="twitter" target="_blank" href="#" title="twitter">twitter</a>
+                    
+                        <a class="facebook" target="_blank" href="#" title="facebook">facebook</a>
+                    
+                        <a class="rss" target="_blank" href="/atom.xml" title="rss">rss</a>
+                    
+                </div>
+            </nav>
+        </header>                
+    </div>
+</nav>
+      <div class="body-wrap"><article id="post-iOS-article06" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/08/30/iOS-article06/" class="article-date">
+      <time datetime="2016-08-30T06:10:21.000Z" itemprop="datePublished">2016-08-30</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      iOS 探讨之 玩转设备权限
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+    <div class="article-category tagcloud">
+    <a class="article-category-link" href="/categories/iOS/">iOS</a>
+    </div>
+
+
+        
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/iOS/">iOS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/权限/">权限</a></li></ul>
+    </div>
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <p><strong>&#x9610;&#x8FF0;</strong></p>
+<p>&#x3000;&#x3000;&#x4ECE;&#x524D;&#x51E0;&#x5E74;&#x7684;&#x68F1;&#x955C;&#x95E8;&#x5230;&#x6700;&#x8FD1;&#x7684;Apple&#x4E0E;FBI&#x5173;&#x4E8E;&#x89E3;&#x9501;iPhone&#x7684;&#x4E89;&#x8BBA;&#xFF0C;&#x4EBA;&#x4EEC;&#x5F00;&#x59CB;&#x91CD;&#x89C6;&#x4E2A;&#x4EBA;&#x9690;&#x79C1;&#x5730;&#x4FDD;&#x62A4;&#x3002;Apple&#x5728;&#x7528;&#x6237;&#x4FDD;&#x62A4;&#x9690;&#x79C1;&#x8FD9;&#x65B9;&#x9762;&#x505A;&#x4E86;&#x5F88;&#x591A;&#x5DE5;&#x4F5C;&#xFF0C;&#x56E0;&#x6B64;&#x53D7;&#x5230;&#x4E86;&#x5E7F;&#x5927;&#x7528;&#x6237;&#x7684;&#x597D;&#x8BC4;&#xFF0C;&#x4F46;&#x53D8;&#x76F8;&#x5F97;&#x589E;&#x52A0;&#x5BF9;iOS&#x5F00;&#x53D1;&#x8005;&#x7684;&#x8981;&#x6C42;(&#x719F;&#x7EC3;&#x5730;&#x638C;&#x63E1;&#x8BBE;&#x5907;&#x6743;&#x9650;)&#x3002;&#x4E0B;&#x9762;&#x6211;&#x4EEC;&#x5F00;&#x59CB;&#x63A2;&#x8BA8;&#x4E00;&#x4E0B;iOS&#x8BBE;&#x5907;&#x4E2D;&#x67D0;&#x4E9B;&#x6743;&#x9650;&#x3002;(&#x6CE8;:iPad&#x3001;iTouch&#x4E0D;&#x542B;&#x6709;&#x67D0;&#x4E9B;&#x529F;&#x80FD;)</p>
+<p><br><br><strong>&#x603B;&#x62EC;</strong></p>
+<p>&#x672C;&#x6587;&#x63A2;&#x8BA8;&#x65B9;&#x9762;&#x5305;&#x62EC;&#x4EE5;&#x4E0B;&#x6743;&#x9650;:</p>
+<ul>
+<li><a href="#anchor01">&#x8054;&#x7F51;&#x6743;&#x9650;</a></li>
+<li><a href="#anchor02">&#x76F8;&#x518C;&#x6743;&#x9650;</a></li>
+<li><a href="#anchor03">&#x76F8;&#x673A;&#x3001;&#x9EA6;&#x514B;&#x98CE;&#x6743;&#x9650;</a></li>
+<li><a href="#anchor04">&#x5B9A;&#x4F4D;&#x6743;&#x9650;</a></li>
+<li><a href="#anchor05">&#x63A8;&#x9001;&#x6743;&#x9650;</a></li>
+<li><a href="#anchor06">&#x901A;&#x8BAF;&#x5F55;&#x6743;&#x9650;</a></li>
+<li><a href="#anchor07">&#x65E5;&#x5386;&#x3001;&#x5907;&#x5FD8;&#x5F55;&#x6743;&#x9650;</a></li>
+</ul>
+<p><br><br><strong>&#x5177;&#x4F53;</strong></p>
+<p><span id="anchor01">1. &#x8054;&#x7F51;&#x6743;&#x9650;</span></p>
+<p>&#x4F9D;&#x8D56;&#x5E93;</p>
+<p><code>@import CoreTelephony; //&#x8054;&#x7F51;</code></p>
+<p>&#x83B7;&#x53D6;&#x72B6;&#x6001;</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// &#x83B7;&#x53D6;&#x5F53;&#x524D;&#x7F51;&#x7EDC;&#x72B6;&#x6001;</span></span><br><span class="line">- (<span class="keyword">void</span>)getTheCurrentNetEnvironment {</span><br><span class="line">    CTCellularData *cellularData = [[CTCellularData alloc]init];</span><br><span class="line">    cellularData.cellularDataRestrictionDidUpdateNotifier =  ^(CTCellularDataRestrictedState state){</span><br><span class="line">        <span class="comment">//&#x83B7;&#x53D6;&#x8054;&#x7F51;&#x72B6;&#x6001;</span></span><br><span class="line">        <span class="keyword">switch</span> (state) {</span><br><span class="line">            <span class="keyword">case</span> kCTCellularDataRestricted:</span><br><span class="line">                <span class="built_in">NSLog</span>(<span class="string">@&quot;Update Restricrted&quot;</span>);</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            <span class="keyword">case</span> kCTCellularDataNotRestricted:</span><br><span class="line">                <span class="built_in">NSLog</span>(<span class="string">@&quot;Update Not Restricted&quot;</span>);</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            <span class="keyword">case</span> kCTCellularDataRestrictedStateUnknown:</span><br><span class="line">                <span class="built_in">NSLog</span>(<span class="string">@&quot;Update Unknown&quot;</span>);</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            <span class="keyword">default</span>:</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">        };</span><br><span class="line">    };</span><br><span class="line"></span><br><span class="line">    CTCellularDataRestrictedState state = cellularData.restrictedState;</span><br><span class="line">    <span class="keyword">switch</span> (state) {</span><br><span class="line">        <span class="keyword">case</span> kCTCellularDataRestricted:</span><br><span class="line">            <span class="built_in">NSLog</span>(<span class="string">@&quot;Current Restricrted&quot;</span>);</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        <span class="keyword">case</span> kCTCellularDataNotRestricted:</span><br><span class="line">            <span class="built_in">NSLog</span>(<span class="string">@&quot;Current Not Restricted&quot;</span>);</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        <span class="keyword">case</span> kCTCellularDataRestrictedStateUnknown:</span><br><span class="line">            <span class="built_in">NSLog</span>(<span class="string">@&quot;Current Unknown&quot;</span>);</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        <span class="keyword">default</span>:</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></table></figure>
+<p><br><br><span id="anchor02">2. &#x76F8;&#x518C;&#x6743;&#x9650;</span><br>&#x4F9D;&#x8D56;&#x5E93;<br><code>@import AssetsLibrary; // &#x76F8;&#x518C; iOS 6-9</code><br><code>@import Photos; // &#x76F8;&#x518C; iOS 8+</code><br>&#x83B7;&#x53D6;&#x72B6;&#x6001;<br><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// &#x83B7;&#x53D6;&#x5F53;&#x524D;&#x76F8;&#x518C;&#x6743;&#x9650; iOS 6 - 9</span></span><br><span class="line">- (<span class="keyword">void</span>)getTheCurrentPhoteAlbumEnvironmentOld {</span><br><span class="line">    ALAuthorizationStatus status = [ALAssetsLibrary authorizationStatus];</span><br><span class="line">    <span class="keyword">switch</span> (status) {</span><br><span class="line">        <span class="keyword">case</span> ALAuthorizationStatusAuthorized:</span><br><span class="line">            <span class="built_in">NSLog</span>(<span class="string">@&quot;Authorized&quot;</span>);</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        <span class="keyword">case</span> ALAuthorizationStatusDenied:</span><br><span class="line">            <span class="built_in">NSLog</span>(<span class="string">@&quot;Denied&quot;</span>);</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        <span class="keyword">case</span> ALAuthorizationStatusNotDetermined:</span><br><span class="line">            <span class="built_in">NSLog</span>(<span class="string">@&quot;not Determined&quot;</span>);</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        <span class="keyword">case</span> ALAuthorizationStatusRestricted:</span><br><span class="line">            <span class="built_in">NSLog</span>(<span class="string">@&quot;Restricted&quot;</span>);</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        <span class="keyword">default</span>:</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">    }</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="comment">// &#x83B7;&#x53D6;&#x5F53;&#x524D;&#x76F8;&#x518C;&#x6743;&#x9650; iOS 8+</span></span><br><span class="line">- (<span class="keyword">void</span>)getTheCurrentPhoteAlbumEnvironment {</span><br><span class="line">    PHAuthorizationStatus photoAuthorStatus = [PHPhotoLibrary authorizationStatus];</span><br><span class="line">    <span class="keyword">switch</span> (photoAuthorStatus) {</span><br><span class="line">        <span class="keyword">case</span> PHAuthorizationStatusAuthorized: <span class="comment">// &#x8BA4;&#x8BC1;</span></span><br><span class="line">            <span class="built_in">NSLog</span>(<span class="string">@&quot;Authorized&quot;</span>);</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        <span class="keyword">case</span> PHAuthorizationStatusDenied:</span><br><span class="line">            <span class="built_in">NSLog</span>(<span class="string">@&quot;Denied&quot;</span>);</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        <span class="keyword">case</span> PHAuthorizationStatusNotDetermined:</span><br><span class="line">            <span class="built_in">NSLog</span>(<span class="string">@&quot;not Determined&quot;</span>);</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        <span class="keyword">case</span> PHAuthorizationStatusRestricted: <span class="comment">// &#x9650;&#x5236;</span></span><br><span class="line">            <span class="built_in">NSLog</span>(<span class="string">@&quot;Restricted&quot;</span>);</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        <span class="keyword">default</span>:</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></table></figure></p>
+<p>&#x8BBE;&#x7F6E;&#x6743;&#x9650;<br><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// &#x8BBE;&#x7F6E;&#x76F8;&#x518C;&#x6743;&#x9650; iOS 8+</span></span><br><span class="line">- (<span class="keyword">void</span>)setTheCurrentPhoteAlbumEnvironment {</span><br><span class="line">    [PHPhotoLibrary requestAuthorization:^(PHAuthorizationStatus status) {</span><br><span class="line">        <span class="keyword">if</span> (status == PHAuthorizationStatusAuthorized) {</span><br><span class="line">            <span class="built_in">NSLog</span>(<span class="string">@&quot;Authorized&quot;</span>);</span><br><span class="line">        }<span class="keyword">else</span>{</span><br><span class="line">            <span class="built_in">NSLog</span>(<span class="string">@&quot;Denied or Restricted&quot;</span>);</span><br><span class="line">        }</span><br><span class="line">    }];</span><br><span class="line">}</span><br></pre></td></tr></table></figure></p>
+<p><br><br><span id="anchor03">3. &#x76F8;&#x673A;&#x3001;&#x9EA6;&#x514B;&#x98CE;&#x6743;&#x9650;</span><br>&#x4F9D;&#x8D56;&#x5E93;<br><code>@import AVFoundation; // &#x76F8;&#x673A;&#x548C;&#x9EA6;&#x514B;&#x98CE;&#x6743;&#x9650;</code><br>&#x83B7;&#x53D6;&#x72B6;&#x6001;<br><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// &#x83B7;&#x53D6;&#x5F53;&#x524D;&#x76F8;&#x673A;&#x6743;&#x9650;</span></span><br><span class="line">- (<span class="keyword">void</span>)getTheCurrentCameraEnvironment {</span><br><span class="line">    <span class="built_in">AVAuthorizationStatus</span> <span class="built_in">AVstatus</span> = [<span class="built_in">AVCaptureDevice</span> authorizationStatusForMediaType:<span class="built_in">AVMediaTypeVideo</span>];<span class="comment">//&#x76F8;&#x673A;&#x6743;&#x9650;</span></span><br><span class="line"><span class="comment">//    AVAuthorizationStatus AVstatus = [AVCaptureDevice authorizationStatusForMediaType:AVMediaTypeAudio];//&#x9EA6;&#x514B;&#x98CE;&#x6743;&#x9650;</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">switch</span> (<span class="built_in">AVstatus</span>) {</span><br><span class="line">        <span class="keyword">case</span> <span class="built_in">AVAuthorizationStatusAuthorized</span>:</span><br><span class="line">            <span class="built_in">NSLog</span>(<span class="string">@&quot;Authorized&quot;</span>);</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        <span class="keyword">case</span> <span class="built_in">AVAuthorizationStatusDenied</span>:</span><br><span class="line">            <span class="built_in">NSLog</span>(<span class="string">@&quot;Denied&quot;</span>);</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        <span class="keyword">case</span> <span class="built_in">AVAuthorizationStatusNotDetermined</span>:</span><br><span class="line">            <span class="built_in">NSLog</span>(<span class="string">@&quot;not Determined&quot;</span>);</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        <span class="keyword">case</span> <span class="built_in">AVAuthorizationStatusRestricted</span>:</span><br><span class="line">            <span class="built_in">NSLog</span>(<span class="string">@&quot;Restricted&quot;</span>);</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        <span class="keyword">default</span>:</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></table></figure></p>
+<p>&#x8BBE;&#x7F6E;&#x6743;&#x9650;<br><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// &#x8BBE;&#x7F6E;&#x5F53;&#x524D;&#x76F8;&#x673A;&#x6743;&#x9650;</span></span><br><span class="line">- (<span class="keyword">void</span>)setTheCurrentCameraEnvironment {</span><br><span class="line">    [<span class="built_in">AVCaptureDevice</span> requestAccessForMediaType:<span class="built_in">AVMediaTypeVideo</span> completionHandler:^(<span class="built_in">BOOL</span> granted) {<span class="comment">//&#x76F8;&#x673A;&#x6743;&#x9650;</span></span><br><span class="line">        <span class="keyword">if</span> (granted) {</span><br><span class="line">            <span class="built_in">NSLog</span>(<span class="string">@&quot;Authorized&quot;</span>);</span><br><span class="line">        }<span class="keyword">else</span>{</span><br><span class="line">            <span class="built_in">NSLog</span>(<span class="string">@&quot;Denied or Restricted&quot;</span>);</span><br><span class="line">        }</span><br><span class="line">    }];</span><br><span class="line"></span><br><span class="line"><span class="comment">//    [AVCaptureDevice requestAccessForMediaType:AVMediaTypeAudio completionHandler:^(BOOL granted) {//&#x9EA6;&#x514B;&#x98CE;&#x6743;&#x9650;</span></span><br><span class="line"><span class="comment">//        if (granted) {</span></span><br><span class="line"><span class="comment">//            NSLog(@&quot;Authorized&quot;);</span></span><br><span class="line"><span class="comment">//        }else{</span></span><br><span class="line"><span class="comment">//            NSLog(@&quot;Denied or Restricted&quot;);</span></span><br><span class="line"><span class="comment">//        }</span></span><br><span class="line"><span class="comment">//    }];</span></span><br><span class="line">}</span><br></pre></td></tr></table></figure></p>
+<p><br><br><span id="anchor04">4. &#x5B9A;&#x4F4D;&#x6743;&#x9650;</span><br>&#x4F9D;&#x8D56;&#x5E93;<br><code>@import CoreLocation; // &#x5B9A;&#x4F4D;&#x6743;&#x9650;</code><br>&#x83B7;&#x53D6;&#x72B6;&#x6001;<br><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// &#x83B7;&#x53D6;&#x5F53;&#x524D;&#x5730;&#x7406;&#x4F4D;&#x7F6E;&#x6743;&#x9650;</span></span><br><span class="line">- (<span class="keyword">void</span>)getTheCurrentLocationEnvironment {</span><br><span class="line">    <span class="built_in">BOOL</span> isLocation = [CLLocationManager locationServicesEnabled];</span><br><span class="line">    <span class="keyword">if</span> (!isLocation) {</span><br><span class="line">        <span class="built_in">NSLog</span>(<span class="string">@&quot;not turn on the location&quot;</span>);</span><br><span class="line">    }</span><br><span class="line">    CLAuthorizationStatus CLstatus = [CLLocationManager authorizationStatus];</span><br><span class="line">    <span class="keyword">switch</span> (CLstatus) {</span><br><span class="line">        <span class="keyword">case</span> kCLAuthorizationStatusAuthorizedAlways:</span><br><span class="line">            <span class="built_in">NSLog</span>(<span class="string">@&quot;Always Authorized&quot;</span>);</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        <span class="keyword">case</span> kCLAuthorizationStatusAuthorizedWhenInUse:</span><br><span class="line">            <span class="built_in">NSLog</span>(<span class="string">@&quot;AuthorizedWhenInUse&quot;</span>);</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        <span class="keyword">case</span> kCLAuthorizationStatusDenied:</span><br><span class="line">            <span class="built_in">NSLog</span>(<span class="string">@&quot;Denied&quot;</span>);</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        <span class="keyword">case</span> kCLAuthorizationStatusNotDetermined:</span><br><span class="line">            <span class="built_in">NSLog</span>(<span class="string">@&quot;not Determined&quot;</span>);</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        <span class="keyword">case</span> kCLAuthorizationStatusRestricted:</span><br><span class="line">            <span class="built_in">NSLog</span>(<span class="string">@&quot;Restricted&quot;</span>);</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        <span class="keyword">default</span>:</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">    }</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="comment">// &#x5F53;&#x524D;&#x5730;&#x7406;&#x4F4D;&#x7F6E;&#x6743;&#x9650;&#x6539;&#x53D8;&#x56DE;&#x8C03;</span></span><br><span class="line">- (<span class="keyword">void</span>)locationManager:(CLLocationManager *)manager didChangeAuthorizationStatus:(CLAuthorizationStatus)status{</span><br><span class="line">    <span class="keyword">switch</span> (status) {</span><br><span class="line">        <span class="keyword">case</span> kCLAuthorizationStatusAuthorizedAlways:</span><br><span class="line">            <span class="built_in">NSLog</span>(<span class="string">@&quot;Always Authorized&quot;</span>);</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        <span class="keyword">case</span> kCLAuthorizationStatusAuthorizedWhenInUse:</span><br><span class="line">            <span class="built_in">NSLog</span>(<span class="string">@&quot;AuthorizedWhenInUse&quot;</span>);</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        <span class="keyword">case</span> kCLAuthorizationStatusDenied:</span><br><span class="line">            <span class="built_in">NSLog</span>(<span class="string">@&quot;Denied&quot;</span>);</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        <span class="keyword">case</span> kCLAuthorizationStatusNotDetermined:</span><br><span class="line">            <span class="built_in">NSLog</span>(<span class="string">@&quot;not Determined&quot;</span>);</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        <span class="keyword">case</span> kCLAuthorizationStatusRestricted:</span><br><span class="line">            <span class="built_in">NSLog</span>(<span class="string">@&quot;Restricted&quot;</span>);</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        <span class="keyword">default</span>:</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">}</span><br></pre></td></tr></table></figure></p>
+<p>&#x8BBE;&#x7F6E;&#x6743;&#x9650;<br><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// &#x8BBE;&#x7F6E;&#x5F53;&#x524D;&#x5730;&#x7406;&#x4F4D;&#x7F6E;&#x6743;&#x9650;</span></span><br><span class="line">- (<span class="keyword">void</span>)setTheCurrentLocationEnvironment {</span><br><span class="line">    CLLocationManager *manager = [[CLLocationManager alloc] init];</span><br><span class="line">    [manager requestAlwaysAuthorization];<span class="comment">//&#x4E00;&#x76F4;&#x83B7;&#x53D6;&#x5B9A;&#x4F4D;&#x4FE1;&#x606F;</span></span><br><span class="line">    [manager requestWhenInUseAuthorization];<span class="comment">//&#x4F7F;&#x7528;&#x7684;&#x65F6;&#x5019;&#x83B7;&#x53D6;&#x5B9A;&#x4F4D;&#x4FE1;&#x606F;</span></span><br><span class="line">}</span><br></pre></td></tr></table></figure></p>
+<p><br><br><span id="anchor05">5. &#x63A8;&#x9001;&#x6743;&#x9650;</span><br>&#x83B7;&#x53D6;&#x72B6;&#x6001;<br><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// &#x83B7;&#x53D6;&#x5F53;&#x524D;&#x63A8;&#x9001;&#x6743;&#x9650;</span></span><br><span class="line">- (<span class="keyword">void</span>)getTheCurrentNotificationEnvironment {</span><br><span class="line">    <span class="built_in">UIUserNotificationSettings</span> *settings = [[<span class="built_in">UIApplication</span> sharedApplication] currentUserNotificationSettings];</span><br><span class="line">    <span class="keyword">switch</span> (settings.types) {</span><br><span class="line">        <span class="keyword">case</span> <span class="built_in">UIUserNotificationTypeNone</span>:</span><br><span class="line">            <span class="built_in">NSLog</span>(<span class="string">@&quot;None&quot;</span>);</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        <span class="keyword">case</span> <span class="built_in">UIUserNotificationTypeAlert</span>:</span><br><span class="line">            <span class="built_in">NSLog</span>(<span class="string">@&quot;Alert Notification&quot;</span>);</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        <span class="keyword">case</span> <span class="built_in">UIUserNotificationTypeBadge</span>:</span><br><span class="line">            <span class="built_in">NSLog</span>(<span class="string">@&quot;Badge Notification&quot;</span>);</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        <span class="keyword">case</span> <span class="built_in">UIUserNotificationTypeSound</span>:</span><br><span class="line">            <span class="built_in">NSLog</span>(<span class="string">@&quot;sound Notification&apos;&quot;</span>);</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">default</span>:</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></table></figure></p>
+<p>&#x8BBE;&#x7F6E;&#x6743;&#x9650;<br><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// &#x8BBE;&#x7F6E;&#x5F53;&#x524D;&#x63A8;&#x9001;&#x6743;&#x9650;</span></span><br><span class="line">- (<span class="keyword">void</span>)setTheCurrentNotificationEnvironment {</span><br><span class="line">    <span class="built_in">UIUserNotificationSettings</span> *setting = [<span class="built_in">UIUserNotificationSettings</span> settingsForTypes:<span class="built_in">UIUserNotificationTypeSound</span> | <span class="built_in">UIUserNotificationTypeAlert</span> | <span class="built_in">UIUserNotificationTypeBadge</span> categories:<span class="literal">nil</span>];</span><br><span class="line">    [[<span class="built_in">UIApplication</span> sharedApplication] registerUserNotificationSettings:setting];</span><br><span class="line">}</span><br></pre></td></tr></table></figure></p>
+<p><br><br><span id="anchor06">6. &#x901A;&#x8BAF;&#x5F55;&#x6743;&#x9650;</span><br>&#x4F9D;&#x8D56;&#x5E93;<br><code>@import AddressBook; // &#x901A;&#x8BAF;&#x5F55;&#x6743;&#x9650; iOS 9-</code><br><code>@import Contacts; // &#x901A;&#x8BAF;&#x5F55;&#x6743;&#x9650; iOS 9+</code><br>&#x83B7;&#x53D6;&#x72B6;&#x6001;<br><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// &#x83B7;&#x53D6;&#x5F53;&#x524D;&#x5730;&#x5740;&#x8584;&#x6743;&#x9650; iOS 9-</span></span><br><span class="line">- (<span class="keyword">void</span>)getTheCurrentAddressBookEnvironmentOld {</span><br><span class="line"></span><br><span class="line">    ABAuthorizationStatus ABstatus = ABAddressBookGetAuthorizationStatus();</span><br><span class="line">    <span class="keyword">switch</span> (ABstatus) {</span><br><span class="line">        <span class="keyword">case</span> kABAuthorizationStatusAuthorized:</span><br><span class="line">            <span class="built_in">NSLog</span>(<span class="string">@&quot;Authorized&quot;</span>);</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        <span class="keyword">case</span> kABAuthorizationStatusDenied:</span><br><span class="line">            <span class="built_in">NSLog</span>(<span class="string">@&quot;Denied&apos;&quot;</span>);</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        <span class="keyword">case</span> kABAuthorizationStatusNotDetermined:</span><br><span class="line">            <span class="built_in">NSLog</span>(<span class="string">@&quot;not Determined&quot;</span>);</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        <span class="keyword">case</span> kABAuthorizationStatusRestricted:</span><br><span class="line">            <span class="built_in">NSLog</span>(<span class="string">@&quot;Restricted&quot;</span>);</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        <span class="keyword">default</span>:</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">    }</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="comment">// &#x83B7;&#x53D6;&#x5F53;&#x524D;&#x5730;&#x5740;&#x8584;&#x6743;&#x9650; iOS 9+</span></span><br><span class="line">- (<span class="keyword">void</span>)getTheCurrentAddressBookEnvironment {</span><br><span class="line"></span><br><span class="line">    CNAuthorizationStatus CNstatus = [CNContactStore authorizationStatusForEntityType:CNEntityTypeContacts];</span><br><span class="line">    <span class="keyword">switch</span> (CNstatus) {</span><br><span class="line">        <span class="keyword">case</span> CNAuthorizationStatusAuthorized:</span><br><span class="line">            <span class="built_in">NSLog</span>(<span class="string">@&quot;Authorized&quot;</span>);</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        <span class="keyword">case</span> CNAuthorizationStatusDenied:</span><br><span class="line">            <span class="built_in">NSLog</span>(<span class="string">@&quot;Denied&apos;&quot;</span>);</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        <span class="keyword">case</span> CNAuthorizationStatusNotDetermined:</span><br><span class="line">            <span class="built_in">NSLog</span>(<span class="string">@&quot;not Determined&quot;</span>);</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        <span class="keyword">case</span> CNAuthorizationStatusRestricted:</span><br><span class="line">            <span class="built_in">NSLog</span>(<span class="string">@&quot;Restricted&quot;</span>);</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        <span class="keyword">default</span>:</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></table></figure></p>
+<p>&#x8BBE;&#x7F6E;&#x6743;&#x9650;<br><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// &#x8BBE;&#x7F6E;&#x5F53;&#x524D;&#x5730;&#x5740;&#x8584;&#x6743;&#x9650; iOS 9-</span></span><br><span class="line">- (<span class="keyword">void</span>)setTheCurrentAddressBookEnvironmentOld {</span><br><span class="line"></span><br><span class="line">    ABAddressBookRef addressBook = ABAddressBookCreateWithOptions(<span class="literal">NULL</span>, <span class="literal">NULL</span>);</span><br><span class="line">    ABAddressBookRequestAccessWithCompletion(addressBook, ^(<span class="keyword">bool</span> granted, <span class="built_in">CFErrorRef</span> error) {</span><br><span class="line">        <span class="keyword">if</span> (granted) {</span><br><span class="line">            <span class="built_in">NSLog</span>(<span class="string">@&quot;Authorized&quot;</span>);</span><br><span class="line">            <span class="built_in">CFRelease</span>(addressBook);</span><br><span class="line">        }<span class="keyword">else</span>{</span><br><span class="line">            <span class="built_in">NSLog</span>(<span class="string">@&quot;Denied or Restricted&quot;</span>);</span><br><span class="line">        }</span><br><span class="line">    });</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="comment">// &#x8BBE;&#x7F6E;&#x5F53;&#x524D;&#x5730;&#x5740;&#x8584;&#x6743;&#x9650; iOS 9+</span></span><br><span class="line">- (<span class="keyword">void</span>)setTheCurrentAddressBookEnvironment {</span><br><span class="line">    CNContactStore *store = [[CNContactStore alloc] init];</span><br><span class="line">    [store requestAccessForEntityType:CNEntityTypeContacts completionHandler:^(<span class="built_in">BOOL</span> granted, <span class="built_in">NSError</span> * _Nullable error) {</span><br><span class="line">        <span class="keyword">if</span> (granted) {</span><br><span class="line">            <span class="built_in">NSLog</span>(<span class="string">@&quot;Authorized&quot;</span>);</span><br><span class="line">        }<span class="keyword">else</span>{</span><br><span class="line">            <span class="built_in">NSLog</span>(<span class="string">@&quot;Denied or Restricted&quot;</span>);</span><br><span class="line">        }</span><br><span class="line">    }];</span><br><span class="line">}</span><br></pre></td></tr></table></figure></p>
+<p><br><br><span id="anchor07">7. &#x65E5;&#x5386;&#x3001;&#x5907;&#x5FD8;&#x5F55;&#x6743;&#x9650;</span><br>&#x4F9D;&#x8D56;&#x5E93;<br><code>@import EventKit; // &#x65E5;&#x5386;&#x3001;&#x5907;&#x5FD8;&#x5F55;&#x6743;&#x9650;</code><br>&#x83B7;&#x53D6;&#x72B6;&#x6001;<br><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// &#x83B7;&#x53D6;&#x5F53;&#x524D;&#x65E5;&#x5386;&#x6743;&#x9650;</span></span><br><span class="line">- (<span class="keyword">void</span>)getTheCurrentDayEventEnvironment {</span><br><span class="line">    EKAuthorizationStatus EKstatus = [EKEventStore  authorizationStatusForEntityType:EKEntityTypeEvent];</span><br><span class="line">    <span class="keyword">switch</span> (EKstatus) {</span><br><span class="line">        <span class="keyword">case</span> EKAuthorizationStatusAuthorized:</span><br><span class="line">            <span class="built_in">NSLog</span>(<span class="string">@&quot;Authorized&quot;</span>);</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        <span class="keyword">case</span> EKAuthorizationStatusDenied:</span><br><span class="line">            <span class="built_in">NSLog</span>(<span class="string">@&quot;Denied&apos;&quot;</span>);</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        <span class="keyword">case</span> EKAuthorizationStatusNotDetermined:</span><br><span class="line">            <span class="built_in">NSLog</span>(<span class="string">@&quot;not Determined&quot;</span>);</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        <span class="keyword">case</span> EKAuthorizationStatusRestricted:</span><br><span class="line">            <span class="built_in">NSLog</span>(<span class="string">@&quot;Restricted&quot;</span>);</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        <span class="keyword">default</span>:</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">    }</span><br><span class="line">}</span><br></pre></td></tr></table></figure></p>
+<p>&#x8BBE;&#x7F6E;&#x6743;&#x9650;<br><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// &#x8BBE;&#x7F6E;&#x5F53;&#x524D;&#x65E5;&#x5386;&#x6743;&#x9650;</span></span><br><span class="line">- (<span class="keyword">void</span>)setTheCurrentDayEventEnvironment {</span><br><span class="line">    EKEventStore *store = [[EKEventStore alloc]init];</span><br><span class="line">    [store requestAccessToEntityType:EKEntityTypeEvent completion:^(<span class="built_in">BOOL</span> granted, <span class="built_in">NSError</span> * _Nullable error) {</span><br><span class="line">        <span class="keyword">if</span> (granted) {</span><br><span class="line">            <span class="built_in">NSLog</span>(<span class="string">@&quot;Authorized&quot;</span>);</span><br><span class="line">        }<span class="keyword">else</span>{</span><br><span class="line">            <span class="built_in">NSLog</span>(<span class="string">@&quot;Denied or Restricted&quot;</span>);</span><br><span class="line">        }</span><br><span class="line">    }];</span><br><span class="line">}</span><br></pre></td></tr></table></figure></p>
+<p><br><br><span id="anchor08">8. &#x5F69;&#x86CB;: &#x8DF3;&#x8F6C;App&#x6743;&#x9650;&#x754C;&#x9762;</span><br><figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// &#x8DF3;&#x8F6C;&#x81F3;&#x7CFB;&#x7EDF;&#x8BBE;&#x7F6E;&#x5F53;&#x524D;App&#x6743;&#x9650;&#x754C;&#x9762;</span></span><br><span class="line">- (<span class="keyword">void</span>)setTheCurrentAllEnvironment {</span><br><span class="line">    [[<span class="built_in">UIApplication</span> sharedApplication] openURL:[<span class="built_in">NSURL</span> URLWithString:<span class="built_in">UIApplicationOpenSettingsURLString</span>]];</span><br><span class="line">}</span><br></pre></td></tr></table></figure></p>
+<p><br><br><strong>&#x603B;&#x7ED3;</strong></p>
+<p>&#x5E0C;&#x671B;&#x5927;&#x5BB6;&#x80FD;&#x591F;&#x73A9;&#x8F6C;&#x8BBE;&#x5907;&#x6743;&#x9650;</p>
+
+      
+    </div>
+    
+  </div>
+  
+    
+    <div class="copyright">
+        <p><span>本文标题:</span><a href="/2016/08/30/iOS-article06/">iOS 探讨之 玩转设备权限</a></p>
+        <p><span>文章作者:</span><a href="/" title="访问 Levis 的个人博客">Levis</a></p>
+        <p><span>发布时间:</span>2016年08月30日 - 14时10分</p>
+        <p><span>最后更新:</span>2016年08月30日 - 16时22分</p>
+        <p>
+            <span>原始链接:</span><a class="post-url" href="/2016/08/30/iOS-article06/" title="iOS 探讨之 玩转设备权限">http://yanglei3kyou.github.io/2016/08/30/iOS-article06/</a>
+            <span class="copy-path" data-clipboard-text="原文: http://yanglei3kyou.github.io/2016/08/30/iOS-article06/　　作者: Levis" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
+            <script src="/js/clipboard.min.js"></script>
+            <script> var clipboard = new Clipboard('.copy-path'); </script>
+        </p>
+        <p>
+            <span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/" title="中国大陆 (CC BY-NC-SA 3.0 CN)" target = "_blank">"署名-非商用-相同方式共享 3.0"</a> 转载请保留原文链接及作者。
+        </p>
+    </div>
+
+
+
+<nav id="article-nav">
+  
+  
+    <a href="/2016/07/10/iOS-article05/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">iOS 探讨之 静态库联调</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+    <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
+    
+</div>
+<style>
+    .left-col .switch-btn {
+        display: none;
+    }
+    .left-col .switch-area {
+        display: none;
+    }
+</style>
+
+<input type="button" id="tocButton" value="隐藏目录"  title="点击按钮隐藏或者显示文章目录">
+
+<script src="http://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
+<script>
+    var valueHide = "隐藏目录";
+    var valueShow = "显示目录";
+
+    if ($(".left-col").is(":hidden")) {
+        $("#tocButton").attr("value", valueShow);
+    }
+
+    $("#tocButton").click(function() {
+        if ($("#toc").is(":hidden")) {
+            $("#tocButton").attr("value", valueHide);
+            $("#toc").slideDown(320);
+            $(".switch-btn, .switch-area").fadeOut(300);
+        }
+        else {
+            $("#tocButton").attr("value", valueShow);
+            $("#toc").slideUp(350);
+            $(".switch-btn, .switch-area").fadeIn(500);
+        }
+    })
+
+    if ($(".toc").length < 1) {
+        $("#toc, #tocButton").hide();
+        $(".switch-btn, .switch-area").show();
+    }
+</script>
+
+
+
+
+
+<div class="bdsharebuttonbox">
+	<a href="#" class="fx fa-weibo bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>
+	<a href="#" class="fx fa-weixin bds_weixin" data-cmd="weixin" title="分享到微信"></a>
+	<a href="#" class="fx fa-qq bds_sqq" data-cmd="sqq" title="分享到QQ好友"></a>
+	<a href="#" class="fx fa-facebook-official bds_fbook" data-cmd="fbook" title="分享到Facebook"></a>
+	<a href="#" class="fx fa-twitter bds_twi" data-cmd="twi" title="分享到Twitter"></a>
+	<a href="#" class="fx fa-linkedin bds_linkedin" data-cmd="linkedin" title="分享到linkedin"></a>
+	<a href="#" class="fx fa-files-o bds_copy" data-cmd="copy" title="分享到复制网址"></a>
+</div>
+<script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"2","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
+
+
+
+
+    
+      <div class="duoshuo" id="comments">
+    <!-- 多说评论框 start -->
+    <div class="ds-thread" data-thread-key="2016/08/30/iOS-article06/" data-title="iOS 探讨之 玩转设备权限" data-url="http://yanglei3kyou.github.io/2016/08/30/iOS-article06/"></div>
+    <!-- 多说评论框 end -->
+    <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+    <script type="text/javascript">
+    var duoshuoQuery = {short_name:"yanglei3kyou"};
+    (function() {
+        var ds = document.createElement('script');
+        ds.type = 'text/javascript';ds.async = true;
+        ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+        ds.charset = 'UTF-8';
+        (document.getElementsByTagName('head')[0] 
+         || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+    </script>
+    <!-- 多说公共JS代码 end -->
+</div>
+
+    
+
+
+
+    <div class="scroll" id="post-nav-button">
+        
+            <a href="/" title="回到主页"><i class="fa fa-home"></i></a>
+        
+        <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
+        
+            <a href="/2016/07/10/iOS-article05/" title="下一篇: iOS 探讨之 静态库联调">
+                <i class="fa fa-angle-right"></i>
+            </a>
+        
+    </div>
+    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2016/08/30/iOS-article06/">iOS 探讨之 玩转设备权限</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/07/10/iOS-article05/">iOS 探讨之 静态库联调</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/06/08/iOS-article04/">iOS 探讨之 动态二维码</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/05/30/iOS-article03/">iOS 探讨之 正则表达式</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/04/17/iOS-article02/">iOS 探讨之 "Developer Tools Access 需要控制..."</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/03/27/iOS-article01/">iOS 探讨之 WWDCRA 无效 or "此证书的签发者无效"</a></li></ul>
+    <script src="http://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
+    <script>
+        $(".post-list").addClass("toc-article");
+        $(".post-list-item a").attr("target","_blank");
+        $("#post-nav-button > a:nth-child(2)").click(function() {
+            $(".fa-bars, .fa-times").toggle();
+            $(".post-list").toggle(300);
+            if ($(".toc").length > 0) {
+                $("#toc, #tocButton").toggle(200, function() {
+                    if ($(".switch-area").is(":visible")) {
+                        $("#toc, .switch-btn, .switch-area").toggle();
+                        $("#tocButton").attr("value", valueHide);
+                        }
+                    })
+            }
+            else {
+                $(".switch-btn, .switch-area").fadeToggle(300);
+            }
+        })
+    </script>
+
+
+
+    <script>
+        
+    </script>
+</div>
+      <footer id="footer">
+    <div class="outer">
+        <div id="footer-info">
+            <div class="footer-left">
+                &copy; 2016 Levis
+            </div>
+            <div class="footer-right">
+                <a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/luuman/hexo-theme-spfk" target="_blank">Spfk</a> by Network
+            </div>
+        </div>
+        
+            <div class="visit">
+                
+                    <span id="busuanzi_container_site_pv" style='display:none'>
+                        <span id="site-visit">本站到访数: 
+                            <span id="busuanzi_value_site_pv"></span>
+                        </span>
+                    </span>
+                
+                
+                    <span>, </span>
+                
+                
+                    <span id="busuanzi_container_page_pv" style='display:none'>
+                        <span id="page-visit">本页阅读量: 
+                            <span id="busuanzi_value_page_pv"></span>
+                        </span>
+                    </span>
+                
+            </div>
+        
+    </div>
+</footer>
+
+    </div>
+    <script src="http://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
+<script src="/js/main.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            var backgroundnum = 21;
+            var backgroundimg = "url(/background/bg-x.jpg)".replace(/x/gi, Math.ceil(Math.random() * backgroundnum));
+            $("#mobile-nav").css({"background-image": backgroundimg,"background-size": "cover","background-position": "center"});
+            $(".left-col").css({"background-image": backgroundimg,"background-size": "cover","background-position": "center"});
+        })
+    </script>
+
+
+
+
+<div class="scroll" id="scroll">
+    <a href="#"><i class="fa fa-arrow-up"></i></a>
+    <a href="#comments"><i class="fa fa-comments-o"></i></a>
+    <a href="#footer"><i class="fa fa-arrow-down"></i></a>
+</div>
+<script>
+    $(document).ready(function() {
+        if ($("#comments").length < 1) {
+            $("#scroll > a:nth-child(2)").hide();
+        };
+    })
+</script>
+
+<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+
+  <script language="javascript">
+    $(function() {
+        $("a[title]").each(function() {
+            var a = $(this);
+            var title = a.attr('title');
+            if (title == undefined || title == "") return;
+            a.data('title', title).removeAttr('title').hover(
+
+            function() {
+                var offset = a.offset();
+                $("<div id=\"anchortitlecontainer\"></div>").appendTo($("body")).html(title).css({
+                    top: offset.top - a.outerHeight() - 15,
+                    left: offset.left + a.outerWidth()/2 + 1
+                }).fadeIn(function() {
+                    var pop = $(this);
+                    setTimeout(function() {
+                        pop.remove();
+                    }, pop.text().length * 800);
+                });
+            }, function() {
+                $("#anchortitlecontainer").remove();
+            });
+        });
+    });
+</script>
+
+  </div>
+</body>
+</html>
